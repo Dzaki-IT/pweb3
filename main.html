@@ -3,142 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mulan & Sulthon Scrapbook</title>
+    <title>Our Scrapbook | Cerah & Lucu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --black: #050505; }
-        body, html { 
-            background: var(--black); color: white; height: 100vh; 
-            margin: 0; overflow: hidden; font-family: 'Montserrat', sans-serif;
+        body, html {
+            height: 100vh; margin: 0; overflow: hidden; /* Lock 1 Halaman */
+            background-color: #fff9fb; font-family: 'Poppins', sans-serif;
         }
 
-        /* HEADER KE SAMPING (HORIZONTAL) */
+        /* Header Ke Samping (Horizontal) */
         header {
-            position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000;
-            background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--gold);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 50px;
+            background: #ffffff; border-bottom: 4px solid #ffccd5;
+            height: 80px; display: flex; align-items: center; 
+            justify-content: space-between; padding: 0 50px;
         }
-        .logo { font-family: 'Playfair Display'; color: var(--gold); font-size: 1.5rem; font-weight: 900; }
-        
-        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; gap: 30px; }
+        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; }
         .nav-links a { 
-            color: #888; text-decoration: none; font-size: 0.75rem; 
-            letter-spacing: 3px; transition: 0.4s; font-weight: 700;
+            color: #ff758f; text-decoration: none; font-weight: bold; 
+            font-size: 16px; transition: 0.3s;
         }
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover { color: #c9184a; transform: translateY(-3px); display: inline-block; }
 
-        /* PAGE SYSTEM - NO SCROLL */
-        .page { 
-            position: absolute; inset: 0; display: none; 
-            padding-top: 100px; height: 100vh; width: 100vw;
+        /* Halaman */
+        .page {
+            display: none; height: calc(100vh - 80px); 
+            padding: 40px; text-align: center;
         }
-        #beranda:target, #horror:target, #romance:target, #honorable:target { display: block; }
-        #beranda { display: block; }
+        .page.active { display: block; animation: bounceIn 0.5s; }
 
-        /* Highlight Aktif */
-        #horror:target ~ header [href="#horror"],
-        #romance:target ~ header [href="#romance"],
-        #honorable:target ~ header [href="#honorable"],
-        #beranda:target ~ header [href="#beranda"] { color: var(--gold); }
-
-        /* BERANDA PURE 1 HALAMAN */
-        .hero-pure { 
-            height: calc(100vh - 100px); display: flex; 
-            align-items: center; justify-content: center; text-align: center; 
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
         }
-        .hero-pure h1 { font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--gold); }
 
-        /* GRID 5 KOLOM STABIL */
+        /* Beranda Lucu */
+        .hero { 
+            height: 100%; display: flex; align-items: center; justify-content: center; 
+            background-image: radial-gradient(#ffccd5 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        /* Grid 5 Kolom Lucu */
         .movie-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); 
-            gap: 15px; padding: 20px 50px; height: 70vh;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
         }
-        .frame-box { 
-            border: 1px solid #222; background: #111; height: 100%; 
-            display: flex; flex-direction: column; transition: 0.4s;
+        .frame {
+            background: white; border-radius: 20px; border: 3px solid #ffccd5;
+            overflow: hidden; transition: 0.3s; box-shadow: 0 8px 0px #ffe5ec;
         }
-        .frame-box:hover { border-color: var(--gold); transform: scale(1.02); }
-        .img-placeholder { 
-            width: 100%; height: 75%; background: #222; 
-            object-fit: cover; border-bottom: 1px solid var(--gold); 
+        .frame:hover { transform: translateY(-10px) rotate(2deg); border-color: #ff758f; }
+        .img-placeholder {
+            width: 100%; height: 70%; background: #fff0f3; object-fit: cover;
         }
-        .info { padding: 10px; text-align: center; }
-        .info h6 { font-size: 0.7rem; color: var(--gold); margin: 0; }
+        .title-tag {
+            padding: 10px; background: #fff; color: #ff4d6d; font-weight: bold; font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">CINEMA 01</div>
+    <div style="font-size: 24px; font-weight: 900; color: #ff4d6d;">🎬 Studio Kita</div>
     <ul class="nav-links">
-        <li><a href="#beranda">HOME</a></li>
-        <li><a href="#horror">HORROR</a></li>
-        <li><a href="#romance">ROMANCE</a></li>
-        <li><a href="#honorable">MENTIONS</a></li>
+        <li><a href="#" onclick="showPage('beranda')">HOME</a></li>
+        <li><a href="#" onclick="showPage('horror')">HORROR</a></li>
+        <li><a href="#" onclick="showPage('romance')">ROMANCE</a></li>
+        <li><a href="#" onclick="showPage('honorable')">MENTIONS</a></li>
     </ul>
 </header>
 
-<div class="page" id="beranda">
-    <div class="hero-pure">
-        <h1>Mulan and Sulthon<br>Movies List</h1>
+<div id="beranda" class="page active">
+    <div class="hero">
+        <h1 class="display-2 fw-bold" style="color: #ff4d6d; text-shadow: 3px 3px 0px #ffccd5;">
+            Mulan and Sulthon<br>Movies List ✨
+        </h1>
     </div>
 </div>
 
-<div class="page" id="horror">
-    <div class="container-fluid">
-        <h3 class="text-center mb-4" style="letter-spacing: 5px;">HORROR VAULT</h3>
-        <div class="movie-grid">
-            <div class="frame-box">
-                <img src="GAMBAR_1.jpg" class="img-placeholder" alt="Custom Me">
-                <div class="info"><h6>MOVIE TITLE 1</h6></div>
-            </div>
-            <div class="frame-box">
-                <img src="GAMBAR_2.jpg" class="img-placeholder" alt="Custom Me">
-                <div class="info"><h6>MOVIE TITLE 2</h6></div>
-            </div>
-            <div class="frame-box">
-                <img src="GAMBAR_3.jpg" class="img-placeholder" alt="Custom Me">
-                <div class="info"><h6>MOVIE TITLE 3</h6></div>
-            </div>
-            <div class="frame-box">
-                <img src="GAMBAR_4.jpg" class="img-placeholder" alt="Custom Me">
-                <div class="info"><h6>MOVIE TITLE 4</h6></div>
-            </div>
-            <div class="frame-box">
-                <img src="GAMBAR_5.jpg" class="img-placeholder" alt="Custom Me">
-                <div class="info"><h6>MOVIE TITLE 5</h6></div>
-            </div>
-        </div>
+<div id="horror" class="page">
+    <h2 class="mb-5" style="color: #ff4d6d;">👻 Horror Tapi Seru</h2>
+    <div class="movie-grid">
+        <div class="frame"><img src="h1.jpg" class="img-placeholder"><div class="title-tag">Movie 1</div></div>
+        <div class="frame"><img src="h2.jpg" class="img-placeholder"><div class="title-tag">Movie 2</div></div>
+        <div class="frame"><img src="h3.jpg" class="img-placeholder"><div class="title-tag">Movie 3</div></div>
+        <div class="frame"><img src="h4.jpg" class="img-placeholder"><div class="title-tag">Movie 4</div></div>
+        <div class="frame"><img src="h5.jpg" class="img-placeholder"><div class="title-tag">Movie 5</div></div>
     </div>
 </div>
 
-<div class="page" id="romance">
-    <div class="container-fluid">
-        <h3 class="text-center mb-4" style="letter-spacing: 5px;">ROMANTIC TALES</h3>
-        <div class="movie-grid">
-            <div class="frame-box"><img src="R1.jpg" class="img-placeholder"><div class="info"><h6>TITLE 1</h6></div></div>
-            <div class="frame-box"><img src="R2.jpg" class="img-placeholder"><div class="info"><h6>TITLE 2</h6></div></div>
-            <div class="frame-box"><img src="R3.jpg" class="img-placeholder"><div class="info"><h6>TITLE 3</h6></div></div>
-            <div class="frame-box"><img src="R4.jpg" class="img-placeholder"><div class="info"><h6>TITLE 4</h6></div></div>
-            <div class="frame-box"><img src="R5.jpg" class="img-placeholder"><div class="info"><h6>TITLE 5</h6></div></div>
-        </div>
+<div id="romance" class="page">
+    <h2 class="mb-5" style="color: #ff4d6d;">💖 Sweet Moments</h2>
+    <div class="movie-grid">
+        <div class="frame"><img src="r1.jpg" class="img-placeholder"><div class="title-tag">Movie 1</div></div>
+        <div class="frame"><img src="r2.jpg" class="img-placeholder"><div class="title-tag">Movie 2</div></div>
+        <div class="frame"><img src="r3.jpg" class="img-placeholder"><div class="title-tag">Movie 3</div></div>
+        <div class="frame"><img src="r4.jpg" class="img-placeholder"><div class="title-tag">Movie 4</div></div>
+        <div class="frame"><img src="r5.jpg" class="img-placeholder"><div class="title-tag">Movie 5</div></div>
     </div>
 </div>
 
-<div class="page" id="honorable">
-    <div class="container-fluid">
-        <h3 class="text-center mb-4" style="letter-spacing: 5px;">HONORABLE MENTIONS</h3>
-        <div class="movie-grid">
-            <div class="frame-box"><img src="M1.jpg" class="img-placeholder"><div class="info"><h6>EXTRA 1</h6></div></div>
-            <div class="frame-box"><img src="M2.jpg" class="img-placeholder"><div class="info"><h6>EXTRA 2</h6></div></div>
-            <div class="frame-box"><img src="M3.jpg" class="img-placeholder"><div class="info"><h6>EXTRA 3</h6></div></div>
-            <div class="frame-box"><img src="M4.jpg" class="img-placeholder"><div class="info"><h6>EXTRA 4</h6></div></div>
-            <div class="frame-box"><img src="M5.jpg" class="img-placeholder"><div class="info"><h6>EXTRA 5</h6></div></div>
-        </div>
+<div id="honorable" class="page">
+    <h2 class="mb-5" style="color: #ff4d6d;">🌟 Honorable Mention</h2>
+    <div class="movie-grid">
+        <div class="frame"><img src="m1.jpg" class="img-placeholder"><div class="title-tag">Extra 1</div></div>
+        <div class="frame"><img src="m2.jpg" class="img-placeholder"><div class="title-tag">Extra 2</div></div>
+        <div class="frame"><img src="m3.jpg" class="img-placeholder"><div class="title-tag">Extra 3</div></div>
+        <div class="frame"><img src="m4.jpg" class="img-placeholder"><div class="title-tag">Extra 4</div></div>
+        <div class="frame"><img src="m5.jpg" class="img-placeholder"><div class="title-tag">Extra 5</div></div>
     </div>
 </div>
+
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+</script>
 
 </body>
 </html>
