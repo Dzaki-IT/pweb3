@@ -3,74 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Access | Cinema</title>
+    <title>Hello! | Mulan & Sulthon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        body, html { 
-            height: 100%; margin: 0; overflow: hidden; 
-            background: #000; font-family: 'Montserrat', sans-serif;
-        }
-        .login-wrapper {
+        body {
+            background-color: #fff0f3; /* Pink Pastel Cerah */
             height: 100vh; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            font-family: 'Comic Sans MS', 'Poppins', sans-serif;
         }
         .login-card {
             width: 100%; max-width: 400px; padding: 40px;
-            border: 1px solid #d4af37; background: rgba(255,255,255,0.02);
-            backdrop-filter: blur(10px); text-align: center;
+            background: white; border-radius: 30px; 
+            box-shadow: 0 15px 0px #ffccd5; /* Efek shadow lucu */
+            border: 4px solid #ffb3c1;
+            text-align: center;
         }
-        .gold-text { color: #d4af37; font-family: 'Playfair Display'; letter-spacing: 3px; }
-        
-        /* Input Styling */
-        input {
-            background: transparent !important; border: none !important;
-            border-bottom: 1px solid #444 !important; color: white !important;
-            border-radius: 0 !important; margin-bottom: 20px; text-align: center;
+        .btn-cute {
+            background-color: #ff4d6d; border: none; color: white;
+            border-radius: 50px; padding: 12px; font-weight: bold;
+            transition: 0.3s;
         }
-        input:focus { border-bottom-color: #d4af37 !important; box-shadow: none !important; }
-
-        /* LOGIKA LOGIN NO JS */
-        /* Tombol 'Enter' secara default mati/disembunyikan */
-        .btn-enter { 
-            display: none; background: #d4af37; color: #000; 
-            font-weight: bold; padding: 12px; text-decoration: none; 
-            margin-top: 20px; letter-spacing: 2px;
-        }
-
-        /* Pesan Error: Muncul jika input salah atau belum lengkap */
-        .error-msg { color: #ff4d4d; font-size: 0.7rem; margin-top: 10px; display: block; }
-
-        /* Jika username & password sesuai pattern, sembunyikan error dan tampilkan tombol */
-        input[id="user"]:valid ~ input[id="pass"]:valid ~ .btn-enter { display: block; }
-        input[id="user"]:valid ~ input[id="pass"]:valid ~ .error-msg { display: none; }
-
-        /* Trik Sensor Password */
-        .pass-box { position: relative; }
-        #show-pass { display: none; }
-        #show-pass:checked ~ .pass-field { -webkit-text-security: none; }
-        .pass-field { -webkit-text-security: disc; } /* Sensor manual CSS */
-        .eye { color: #d4af37; cursor: pointer; font-size: 0.8rem; display: block; margin-bottom: 10px; }
+        .btn-cute:hover { background-color: #c9184a; transform: scale(1.05); }
+        .form-control { border-radius: 15px; border: 2px solid #ffccd5; padding: 10px 15px; }
     </style>
 </head>
 <body>
 
-<div class="login-wrapper">
-    <form class="login-card">
-        <h2 class="gold-text mb-5">CINEMA PRIVÉ</h2>
-        
-        <input type="text" id="user" class="form-control" placeholder="USERNAME" required pattern="mulandumpiez">
-        
-        <div class="pass-box">
-            <input type="checkbox" id="show-pass">
-            <label for="show-pass" class="eye">KLIK UNTUK LIHAT/SENSOR</label>
-            <input type="text" id="pass" class="form-control pass-field" placeholder="PASSWORD" required pattern="princessmulan">
-        </div>
+<div class="login-card">
+    <h2 style="color: #ff4d6d;">🌸 Welcome! 🌸</h2>
+    <p class="text-muted mb-4">Ayo masuk ke dunia Mulan & Sulthon!</p>
+    
+    <div id="error-msg" class="alert alert-danger d-none" style="border-radius: 15px;">Ups! Nama atau password salah, coba lagi ya! ✨</div>
+    
+    <div class="mb-3 text-start">
+        <label class="form-label ms-2 fw-bold" style="color: #ff758f;">Siapa namamu?</label>
+        <input type="text" id="username" class="form-control" placeholder="Ketik mulandumpiez">
+    </div>
 
-        <a href="main.html" class="btn-enter">UNVEIL STUDIO</a>
-        <span class="error-msg">Username atau Password belum tepat...</span>
-    </form>
+    <div class="mb-4 text-start">
+        <label class="form-label ms-2 fw-bold" style="color: #ff758f;">Kodenya apa?</label>
+        <div class="input-group">
+            <input type="password" id="password" class="form-control" placeholder="Ketik princessmulan">
+            <button class="btn btn-outline-danger" type="button" style="border-radius: 0 15px 15px 0;" onclick="togglePass()">
+                <i id="eye-icon" class="bi bi-eye"></i>
+            </button>
+        </div>
+    </div>
+
+    <button class="btn btn-cute w-100" onclick="checkLogin()">MASUK SEKARANG ✨</button>
 </div>
 
+<script>
+    function togglePass() {
+        const passInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        if (passInput.type === "password") {
+            passInput.type = "text";
+            eyeIcon.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            passInput.type = "password";
+            eyeIcon.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    }
+
+    function checkLogin() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        if (user === "mulandumpiez" && pass === "princessmulan") {
+            window.location.href = "main.html";
+        } else {
+            document.getElementById('error-msg').classList.remove('d-none');
+        }
+    }
+</script>
 </body>
 </html>
