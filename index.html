@@ -3,185 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mulan & Sulthon Cinema</title>
+    <title>Mulan & Sulthon Movies</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --black: #050505; --dark-grey: #121212; }
-        
-        body, html { 
-            background-color: var(--black); 
-            color: white; 
-            font-family: 'Montserrat', sans-serif;
-            margin: 0; padding: 0;
-            height: 100vh;
-            overflow: hidden;
-        }
+        :root { --gold: #d4af37; --black: #050505; }
+        body, html { background-color: var(--black); color: white; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* --- SISTEM LOGIN OVERLAY --- */
-        #login-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.8s ease-in-out;
-        }
-
-        /* Saat masuk ke beranda, sembunyikan login screen */
-        #login-screen:target {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .login-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 40px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
-
-        /* --- HEADER --- */
+        /* HEADER AESTHETIC */
         header {
             position: fixed;
-            top: 0; width: 100%;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 10px 0;
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.9);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
         .nav-link {
-            color: #777 !important;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            font-weight: 700;
-            transition: 0.4s;
-            padding: 10px 20px !important;
+            color: #888 !important; font-size: 0.75rem; letter-spacing: 2px;
+            padding: 25px 20px !important; transition: 0.4s;
         }
         .nav-link:hover { color: var(--gold) !important; }
 
-        /* Penanda Halaman Aktif */
+        /* Highlight Halaman Aktif */
         #beranda:target ~ header [href="#beranda"],
         #horror:target ~ header [href="#horror"],
         #romance:target ~ header [href="#romance"],
         #honorable:target ~ header [href="#honorable"] {
             color: var(--gold) !important;
             background: rgba(212, 175, 55, 0.1);
-            border-radius: 5px;
         }
 
-        /* --- PAGE CONTENT --- */
+        /* PAGE SYSTEM */
         .page {
-            position: fixed;
-            inset: 0;
-            display: none;
-            padding-top: 100px;
-            overflow-y: auto;
-            background: var(--black);
-            animation: pageFade 0.6s ease;
+            display: none; padding-top: 100px; min-height: 100vh;
+            animation: fadeIn 0.8s ease;
         }
-        @keyframes pageFade { from { opacity: 0; filter: brightness(0.5); } to { opacity: 1; filter: brightness(1); } }
-
         #beranda:target, #horror:target, #romance:target, #honorable:target { display: block; }
-        /* Beranda aktif otomatis setelah login */
-        #login-screen:target ~ #beranda { display: block; }
+        #beranda { display: block; } /* Default page */
 
-        /* --- DESIGN BERANDA --- */
-        .hero-pure {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .hero-pure h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 8vw, 5rem);
-            color: var(--gold);
-            line-height: 1;
-            margin-bottom: 20px;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- MOVIE GRID 5 KOLOM --- */
+        /* HERO BERANDA */
+        .hero-pure { height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-pure h1 { font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--gold); }
+
+        /* 5 COLUMN GRID */
         .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            padding: 40px 0;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; padding: 40px 0;
         }
         @media (max-width: 992px) { .movie-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        .movie-card {
-            background: var(--dark-grey);
-            border: 1px solid #222;
-            transition: 0.4s;
-            position: relative;
-        }
-        .movie-card:hover { 
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .movie-img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            background: #222;
-            object-fit: cover;
-            border-bottom: 2px solid var(--gold);
-        }
-        .movie-info { padding: 15px; text-align: center; }
-        .movie-info h6 { 
-            font-size: 0.85rem; 
-            color: var(--gold); 
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .movie-info p { font-size: 0.7rem; color: #bbb; line-height: 1.4; margin: 0; }
-
-        .gold-btn {
-            background: var(--gold);
-            color: black;
-            font-weight: 800;
-            border: none;
-            padding: 12px;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-        .gold-btn:hover { background: white; transform: scale(1.05); }
+        .movie-card { background: #111; border: 1px solid #222; transition: 0.4s; }
+        .movie-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+        .movie-img { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-bottom: 2px solid var(--gold); }
+        .movie-info { padding: 15px; font-size: 0.8rem; }
+        .movie-info h6 { color: var(--gold); margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="login-card">
-        <h1 style="font-family: 'Playfair Display'; color: var(--gold);" class="mb-2">CINEMA PRIVÉ</h1>
-        <p class="small text-muted mb-4">Mulan & Sulthon Private Collection</p>
-        <div class="text-start mb-3">
-            <label class="x-small mb-1" style="font-size: 0.6rem; letter-spacing: 1px;">USERNAME</label>
-            <input type="text" class="form-control bg-transparent text-white border-secondary" value="mulandumpiez" readonly>
-        </div>
-        <div class="text-start mb-4">
-            <label class="x-small mb-1" style="font-size: 0.6rem; letter-spacing: 1px;">PASSWORD</label>
-            <input type="password" class="form-control bg-transparent text-white border-secondary" value="princessmulan" readonly>
-        </div>
-        <a href="#login-screen" class="btn gold-btn w-100">UNVEIL SCRAPBOOK</a>
-    </div>
-</div>
-
 <header>
     <div class="container d-flex justify-content-between align-items-center">
-        <div class="fw-bold" style="color:var(--gold); letter-spacing: 4px; font-size: 0.8rem;">EST. 2026</div>
+        <div class="fw-bold text-gold" style="color:var(--gold); letter-spacing: 3px;">CINEMA 01</div>
         <ul class="nav">
             <li class="nav-item"><a href="#beranda" class="nav-link">HOME</a></li>
             <li class="nav-item"><a href="#horror" class="nav-link">HORROR</a></li>
@@ -193,93 +75,19 @@
 
 <div class="page" id="beranda">
     <div class="hero-pure">
-        <p class="mb-0" style="letter-spacing: 8px; font-size: 0.7rem;">PRESENTING</p>
         <h1>Mulan and Sulthon<br>Movies List</h1>
-        <div style="width: 60px; height: 2px; background: var(--gold); margin-top: 20px;"></div>
     </div>
 </div>
 
 <div class="page" id="horror">
-    <div class="container py-5">
-        <h2 class="text-center mb-5" style="letter-spacing: 10px; font-weight: 300;">THE HORROR VAULT</h2>
+    <div class="container">
+        <h3 class="text-center mb-5" style="letter-spacing: 10px;">HORROR VAULT</h3>
         <div class="movie-grid">
             <div class="movie-card">
-                <img src="GAMBAR_HOROR_1.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>Insidious</h6><p>Momen paling tegang pas kita nonton ini tengah malam.</p></div>
+                <img src="LINK_GAMBAR_1" class="movie-img">
+                <div class="movie-info"><h6>Movie Title</h6><p>Deskripsi film...</p></div>
             </div>
-            <div class="movie-card">
-                <img src="GAMBAR_HOROR_2.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>The Conjuring</h6><p>Genggaman tangan jadi lebih erat tiap kali ada jumpscare.</p></div>
             </div>
-            <div class="movie-card">
-                <img src="GAMBAR_HOROR_3.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>Evil Dead</h6><p>Deskripsi film horor pilihan kalian berdua di sini.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="GAMBAR_HOROR_4.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>Hereditary</h6><p>Film yang bikin kita kepikiran sampai berhari-hari.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="GAMBAR_HOROR_5.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>Smile</h6><p>Koleksi horor kelima yang tak terlupakan.</p></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="page" id="romance">
-    <div class="container py-5">
-        <h2 class="text-center mb-5" style="letter-spacing: 10px; font-weight: 300;">ROMANCE TALES</h2>
-        <div class="movie-grid">
-            <div class="movie-card">
-                <img src="ROMANCE_1.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>About Time</h6><p>Nonton ini bikin kita makin bersyukur punya waktu bareng.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="ROMANCE_2.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>La La Land</h6><p>Visualnya secantik kamu pas lagi senyum.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="ROMANCE_3.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>The Notebook</h6><p>Definisi cinta sejati yang sering kita bahas.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="ROMANCE_4.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>Past Lives</h6><p>Film romansa yang sangat mendalam dan estetik.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="ROMANCE_5.jpg" class="movie-img" alt="Poster">
-                <div class="movie-info"><h6>Before Sunrise</h6><p>Percakapan panjang kita yang nggak ada habisnya.</p></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="page" id="honorable">
-    <div class="container py-5">
-        <h2 class="text-center mb-5" style="letter-spacing: 10px; font-weight: 300;">HONORABLE MENTIONS</h2>
-        <div class="movie-grid">
-            <div class="movie-card">
-                <img src="EXTRA_1.jpg" class="movie-img">
-                <div class="movie-info"><h6>Interstellar</h6><p>Cinta adalah satu-satunya yang mampu menembus dimensi.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="EXTRA_2.jpg" class="movie-img">
-                <div class="movie-info"><h6>Tenet</h6><p>Film pusing yang kita tonton bareng-bareng.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="EXTRA_3.jpg" class="movie-img">
-                <div class="movie-info"><h6>The Great Gatsby</h6><p>Nuansa klasik yang jadi inspirasi web ini.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="EXTRA_4.jpg" class="movie-img">
-                <div class="movie-info"><h6>Inception</h6><p>Mimpi di dalam mimpi, kayak momen ketemu kamu.</p></div>
-            </div>
-            <div class="movie-card">
-                <img src="EXTRA_5.jpg" class="movie-img">
-                <div class="movie-info"><h6>Avatar</h6><p>Dunia indah yang kita tonton bareng di layar lebar.</p></div>
-            </div>
-        </div>
     </div>
 </div>
 
